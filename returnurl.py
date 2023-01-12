@@ -14,7 +14,7 @@ def ResultUrlData():
         data_dict = request.form.to_dict() # type = dict
         json_str = json.dumps(data_dict, indent=4)
         with open("templates/ResultUrlData.html", 'w+', encoding='utf-8') as file:
-            file.write(json_str)
+            file.write("1|OK")
         
         # return render_template("ResultUrlData.html")
         return "1|OK"
