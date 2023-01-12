@@ -12,6 +12,7 @@ def ResultUrlData():
     # 判斷接收的結果
     if request.method == "POST":
         data_dict = request.form.to_dict() # type = dict
+        print(data_dict)
         json_str = json.dumps(data_dict, indent=4)
         with open("templates/ResultUrlData.html", 'w+', encoding='utf-8') as file:
             file.write("1|OK")
