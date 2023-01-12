@@ -9,14 +9,18 @@ def home():
 
 @app.route('/ResultUrlData', methods=["GET", "POST"])
 def ResultUrlData():
-    
-    data_dict = request.form.to_dict() # type = dict
-    json_str = json.dumps(data_dict, indent=4)
-    with open("templates/ResultUrlData.html", 'w+', encoding='utf-8') as file:
-        file.write(json_str)
-   
-    # return render_template("ResultUrlData.html")
-    return 'HELLO WORLD'
+    # 判斷接收的結果
+    if request.method == "POST":
+        data_dict = request.form.to_dict() # type = dict
+        json_str = json.dumps(data_dict, indent=4)
+        with open("templates/ResultUrlData.html", 'w+', encoding='utf-8') as file:
+            file.write(json_str)
+        
+        # return render_template("ResultUrlData.html")
+        return "1|OK"
+    else:
+        "這裡是get頁面"
+
 
 if __name__=="__main__":
     app.run()
