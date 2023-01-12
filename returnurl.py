@@ -15,8 +15,8 @@ def ResultUrlData():
     with open("templates/ResultUrlData.html", 'w+', encoding='utf-8') as file:
         file.write(json_str)
    
-    return render_template("ResultUrlData.html")
-    # return json_str
+    # return render_template("ResultUrlData.html")
+    return json_str
 
 if __name__=="__main__":
     app.run()
