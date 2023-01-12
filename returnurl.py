@@ -16,7 +16,7 @@ def ResultUrlData():
         file.write(json_str)
    
     # return render_template("ResultUrlData.html")
-    return json_str
+    return 'HELLO WORLD'
 
 if __name__=="__main__":
     app.run()
