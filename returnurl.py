@@ -18,8 +18,8 @@ def ResultUrlData():
         
         # return render_template("ResultUrlData.html")
         return "1|OK"
-    else:
-        "這裡是get頁面"
+    elif request.method == "GET":
+        return "這裡是get頁面"
 
 
 if __name__=="__main__":
