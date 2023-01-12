@@ -1,1 +1,1 @@
-web: gunicorn returnurl:app
+web gunicorn returnurl:app
