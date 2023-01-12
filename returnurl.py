@@ -19,6 +19,8 @@ def ResultUrlData():
         # return render_template("ResultUrlData.html")
         return "1|OK"
     elif request.method == "GET":
+        with open("templates/ResultUrlData.html", 'w+', encoding='utf-8') as file:
+            file.write("1|OK")
         return "這裡是get頁面"
 
 
