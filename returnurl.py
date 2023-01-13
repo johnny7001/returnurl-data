@@ -1,20 +1,11 @@
-from flask import Flask, render_template, request
-import json
-import os
+from flask import Flask, request
 import urllib.parse
 import hashlib
-from dotenv import load_dotenv
-load_dotenv()
 
 app = Flask(__name__)
 
-# HashKey=pwFHCqoQZGmho4w6
-# HashIV=EkRm7iFT261dpevs
-# 請填入環境變數 .env檔案
-HashKey = os.getenv("HashKey")
-HashIV = os.getenv("HashIV")
-
-# ReturnURL = 'https://returnurl-data.herokuapp.com/ResultUrlData'
+HashKey="pwFHCqoQZGmho4w6"
+HashIV="EkRm7iFT261dpevs"
 
 @app.route('/')
 def home():
@@ -61,3 +52,4 @@ def ResultUrlData():
 
 if __name__=="__main__":
     app.run()
+    # app.run(host='0.0.0.0', port=3123, debug=True)
