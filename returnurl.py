@@ -36,7 +36,8 @@ def ResultUrlData():
         # 排序字串
         sort_str = ''
         for k in sorted (data_dict) : 
-            sort_str += f'{k}={data_dict[k]}&'
+            if k != 'CheckMacValue':
+                sort_str += f'{k}={data_dict[k]}&'
 
         hashStr = f"HashKey={HashKey}&{sort_str}HashIV={HashIV}".lower()
         # 產生檢查碼
