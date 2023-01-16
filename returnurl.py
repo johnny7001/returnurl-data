@@ -1,6 +1,9 @@
 from flask import Flask, request
 import urllib.parse
 import hashlib
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -15,8 +18,8 @@ def get_CheckMacValue(hashStr) -> str:
     CheckMacValue = hashlib.sha256(url_encodeStr.encode('utf-8')).hexdigest().upper()
     return CheckMacValue
 
-HashKey="pwFHCqoQZGmho4w6"
-HashIV="EkRm7iFT261dpevs"
+HashKey = os.getenv("HashKey")
+HashIV = os.getenv("HashIV")
 
 @app.route('/')
 def home():
@@ -33,7 +36,7 @@ def ResultUrlData():
         print(f'收到的檢查碼 = {returnCheck}')
 
         # 將收到的回覆組成 data 字串
-        # 排序字串
+        # 檢查碼以外的字串重新排序, 形成新的字串
         sort_str = ''
         for k in sorted (data_dict) : 
             if k != 'CheckMacValue':
