@@ -1,6 +1,9 @@
 from flask import Flask, request
 import urllib.parse
 import hashlib
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -15,8 +18,9 @@ def get_CheckMacValue(hashStr) -> str:
     CheckMacValue = hashlib.sha256(url_encodeStr.encode('utf-8')).hexdigest().upper()
     return CheckMacValue
 
-HashKey="pwFHCqoQZGmho4w6"
-HashIV="EkRm7iFT261dpevs"
+# 串接金鑰
+HashKey = os.getenv("HashKey")
+HashIV = os.getenv("HashIV")
 
 @app.route('/')
 def home():
