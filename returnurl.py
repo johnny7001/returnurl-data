@@ -64,8 +64,8 @@ def PaymentResult():
     content = ""
     # 判斷接收的結果
     if request.method == "POST":
-        json_data = request.json
-        print(json_data, type(json_data))
+        dict_data = request.form.to_dict()
+        print(dict_data, type(dict_data))
         # dict_data = json.loads(content)
         # print(dict_data, type(dict_data))
         # # 將回傳的DATA取出後解密
