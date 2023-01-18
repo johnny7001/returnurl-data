@@ -73,10 +73,10 @@ def PaymentResult():
         # # URLDecode解碼
         # content = urllib.parse.unquote(decrypt_str)
         # # data_unquote
-        
+
     elif request.method == "GET":
         content = '站內付2.0的ReturnURL, 付款結果通知'
-    print(content)
+        print(content)
     return content
 
 if __name__=="__main__":
