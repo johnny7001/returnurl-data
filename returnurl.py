@@ -2,7 +2,7 @@ from flask import Flask, request
 import urllib.parse
 import hashlib
 import json
-from ..aes import AESTool
+from aes import AESTool
 
 aes_tool = AESTool()
 
@@ -59,25 +59,25 @@ def ResultUrlData():
     elif request.method == "GET":
         return "這裡是get頁面"
 
-# @app.route('/PaymentResult', methods=["GET", "POST"])
-# def PaymentResult():
-#     content = ""
-#     # 判斷接收的結果
-#     if request.method == "POST":
-#         json_data = request.json
-#         content = json_data # type = str
-#         dict_data = json.loads(content)
-#         print(dict_data, type(dict_data))
-#         # # 將回傳的DATA取出後解密
-#         # decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
-#         # # URLDecode解碼
-#         # content = urllib.parse.unquote(decrypt_str)
-#         # # data_unquote
+@app.route('/PaymentResult', methods=["GET", "POST"])
+def PaymentResult():
+    content = ""
+    # 判斷接收的結果
+    if request.method == "POST":
+        json_data = request.json
+        content = json_data # type = str
+        dict_data = json.loads(content)
+        print(dict_data, type(dict_data))
+        # # 將回傳的DATA取出後解密
+        # decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
+        # # URLDecode解碼
+        # content = urllib.parse.unquote(decrypt_str)
+        # # data_unquote
 
-#     elif request.method == "GET":
-#         content = '站內付2.0的ReturnURL, 付款結果通知'
-#         print(content)
-#     return content
+    elif request.method == "GET":
+        content = '站內付2.0的ReturnURL, 付款結果通知'
+        print(content)
+    return content
 
 if __name__=="__main__":
     app.run()
