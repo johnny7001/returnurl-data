@@ -55,6 +55,18 @@ def ResultUrlData():
     elif request.method == "GET":
         return "這裡是get頁面"
 
+@app.route('/PaymentResult', methods=["GET", "POST"])
+def PaymentResult():
+    content = ""
+    # 判斷接收的結果
+    if request.method == "POST":
+        json_data = request.json
+        content = json_data # type = str
+    elif request.method == "GET":
+        content = '站內付2.0的ReturnURL, 付款結果通知'
+    print(content)
+    return content
+
 if __name__=="__main__":
     app.run()
     # app.run(host='0.0.0.0', port=3123, debug=True)
