@@ -1,6 +1,10 @@
 from flask import Flask, request
 import urllib.parse
 import hashlib
+import json
+from ..aes import AESTool
+
+aes_tool = AESTool()
 
 app = Flask(__name__)
 
@@ -62,6 +66,14 @@ def PaymentResult():
     if request.method == "POST":
         json_data = request.json
         content = json_data # type = str
+        dict_data = json.loads(content)
+
+        # 將回傳的DATA取出後解密
+        decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
+        # URLDecode解碼
+        content = urllib.parse.unquote(decrypt_str)
+        # data_unquote
+
     elif request.method == "GET":
         content = '站內付2.0的ReturnURL, 付款結果通知'
     print(content)
