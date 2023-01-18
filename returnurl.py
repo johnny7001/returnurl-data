@@ -65,9 +65,9 @@ def PaymentResult():
     # 判斷接收的結果
     if request.method == "POST":
         json_data = request.json
-        content = json_data # type = str
-        dict_data = json.loads(content)
-        print(dict_data, type(dict_data))
+        print(json_data, type(json_data))
+        # dict_data = json.loads(content)
+        # print(dict_data, type(dict_data))
         # # 將回傳的DATA取出後解密
         # decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
         # # URLDecode解碼
