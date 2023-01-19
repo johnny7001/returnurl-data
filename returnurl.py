@@ -67,13 +67,14 @@ def PaymentResult():
     # 判斷接收的結果
     if request.method == "POST":
         json_data = request.json
-        dict_data = json.loads(json_data)
-        print(dict_data, type(dict_data)) # type = dict
-        # 將回傳的DATA取出後解密
-        decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
-        # URLDecode解碼
-        content = urllib.parse.unquote(decrypt_str)
-        print('解碼後的Data: ' + content)
+        print(json_data, type(json_data))
+        # dict_data = json.loads(json_data)
+        # print(dict_data, type(dict_data)) # type = dict
+        # # 將回傳的DATA取出後解密
+        # decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
+        # # URLDecode解碼
+        # content = urllib.parse.unquote(decrypt_str)
+        # print('解碼後的Data: ' + content)
 
     elif request.method == "GET":
         content = '站內付2.0的ReturnURL, 付款結果通知'
