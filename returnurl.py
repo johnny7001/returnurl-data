@@ -2,7 +2,60 @@ from flask import Flask, request
 import urllib.parse
 import hashlib
 import json
-from aes import AESTool
+from Crypto.Cipher import AES
+import base64
+
+# 特店測試資料:
+# MerchantID = "3002607" # 模擬銀行3D驗證
+# HashKey="pwFHCqoQZGmho4w6"
+# HashIV="EkRm7iFT261dpevs"
+
+MerchantID = "2000132" # 模擬無銀行3D驗證
+HashKey="5294y06JbISpM5x9"
+HashIV="v77hoKGq4kWxNNIS"
+
+class AESTool:
+    def __init__(self):
+        self.key = HashKey.encode('utf-8')
+        self.iv = HashIV.encode('utf-8')
+
+    def pkcs7padding(self, text):
+        """
+        加密格式:PKCS7
+        """
+        bs = 16 # 長度16
+        length = len(text) # 243
+        bytes_length = len(text.encode('utf-8')) # 243
+        padding_size = length if (bytes_length == length) else bytes_length
+        # padding_size % bs = 3
+        padding = bs - padding_size % bs
+        # padding = 13
+        padding_text = chr(padding) * padding # chr 編碼轉字符
+        self.coding = chr(padding)
+
+        return text + padding_text
+
+    def aes_encrypt(self, content):
+        """
+        AES加密
+        """
+        cipher = AES.new(self.key, AES.MODE_CBC, self.iv)
+        # 整理字串
+        content_padding = self.pkcs7padding(content)
+        # 加密
+        encrypt_bytes = cipher.encrypt(content_padding.encode('utf-8'))
+        # 重新编码
+        result = str(base64.b64encode(encrypt_bytes), encoding='utf-8')
+        return result
+
+    def aes_decrypt(self, content):
+        """
+        AES解密
+        """
+        cipher = AES.new(self.key, AES.MODE_CBC, self.iv)
+        content = base64.b64decode(content)
+        text = cipher.decrypt(content).decode('utf-8')
+        return self.pkcs7padding(text)
 
 aes_tool = AESTool()
 
@@ -18,9 +71,6 @@ def get_CheckMacValue(hashStr) -> str:
     # 以SHA256加密方式來產生雜凑值, 再轉大寫產生
     CheckMacValue = hashlib.sha256(url_encodeStr.encode('utf-8')).hexdigest().upper()
     return CheckMacValue
-
-HashKey="pwFHCqoQZGmho4w6"
-HashIV="EkRm7iFT261dpevs"
 
 @app.route('/')
 def home():
@@ -66,10 +116,10 @@ def PaymentResult():
     content = ""
     # 判斷接收的結果
     if request.method == "POST":
-        dict_data = request.text
+        dict_data = request.json
         print(dict_data, type(dict_data)) # type = dict
-        # print('='*50)
-        # print(dict_data['Data'])
+        print('='*50)
+        print(dict_data['Data'])
         # # 將回傳的DATA取出後解密
         # decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
         # # URLDecode解碼
