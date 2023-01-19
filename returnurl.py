@@ -133,10 +133,15 @@ def PaymentResult():
 
 @app.route('/CvsMap', methods=["GET", "POST"])
 def CvsMap():
+    content = ''
     if request.method == 'POST':
         dict_data = request.json
         print(dict_data, type(dict_data)) # type = dict
-
-
+        content = dict_data
+    elif request.method == 'GET':
+        content = '這邊是地圖回傳'
+        print('這邊是地圖回傳')
+    return content
+    
 if __name__=="__main__":
     app.run()
