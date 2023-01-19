@@ -131,5 +131,12 @@ def PaymentResult():
         print(content)
     return content
 
+@app.route('/CvsMap', methods=["GET", "POST"])
+def CvsMap():
+    if request.method == 'POST':
+        dict_data = request.json
+        print(dict_data, type(dict_data)) # type = dict
+
+
 if __name__=="__main__":
     app.run()
