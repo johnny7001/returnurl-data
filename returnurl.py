@@ -26,6 +26,7 @@ HashIV="EkRm7iFT261dpevs"
 def home():
     return ('this is ReturnURL')
 
+
 @app.route('/ResultUrlData', methods=["GET", "POST"])
 def ResultUrlData():
     # 判斷接收的結果
@@ -59,14 +60,15 @@ def ResultUrlData():
     elif request.method == "GET":
         return "這裡是get頁面"
 
+# 站內付2.0 接收用
 @app.route('/PaymentResult', methods=["GET", "POST"])
 def PaymentResult():
     content = ""
     # 判斷接收的結果
     if request.method == "POST":
-        dict_data = request.json
-        print(dict_data)
-        # print(dict_data, type(dict_data)) # type = dict
+        json_data = request.json
+        dict_data = json.loads(json_data)
+        print(dict_data, type(dict_data)) # type = dict
         # 將回傳的DATA取出後解密
         decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
         # URLDecode解碼
@@ -80,4 +82,3 @@ def PaymentResult():
 
 if __name__=="__main__":
     app.run()
-    # app.run(host='0.0.0.0', port=3123, debug=True)
