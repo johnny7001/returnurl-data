@@ -6,13 +6,13 @@ from Crypto.Cipher import AES
 import base64
 
 # 特店測試資料:
-# MerchantID = "3002607" # 模擬銀行3D驗證
-# HashKey="pwFHCqoQZGmho4w6"
-# HashIV="EkRm7iFT261dpevs"
+MerchantID = "3002607" # 模擬銀行3D驗證
+HashKey="pwFHCqoQZGmho4w6"
+HashIV="EkRm7iFT261dpevs"
 
-MerchantID = "2000132" # 模擬無銀行3D驗證
-HashKey="5294y06JbISpM5x9"
-HashIV="v77hoKGq4kWxNNIS"
+# MerchantID = "2000132" # 模擬無銀行3D驗證
+# HashKey="5294y06JbISpM5x9"
+# HashIV="v77hoKGq4kWxNNIS"
 
 class AESTool:
     def __init__(self):
