@@ -131,11 +131,13 @@ def PaymentResult():
         print(content)
     return content
 
+# 接收門市地圖資訊
 @app.route('/CvsMap', methods=["GET", "POST"])
 def CvsMap():
     content = ''
     if request.method == 'POST':
         dict_data = request.form.to_dict()
+        print('這裡是回傳資訊: ')
         print(dict_data, type(dict_data)) # type = dict
         content = dict_data
     elif request.method == 'GET':
