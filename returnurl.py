@@ -146,4 +146,5 @@ def CvsMap():
     return content
 
 if __name__=="__main__":
+    app.config['JSON_AS_ASCII'] = False
     app.run()
