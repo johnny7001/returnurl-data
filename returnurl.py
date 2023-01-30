@@ -1,5 +1,5 @@
 # coding:utf-8 
-from flask import Flask, request, jsonify
+from flask import Flask, request
 import urllib.parse
 import hashlib
 from Crypto.Cipher import AES
@@ -147,7 +147,7 @@ def CvsMap():
 
 # 物流整合API
 @app.route('/ServerReplyURL', methods=["GET", "POST"])
-def CvsMap():
+def ServerReplyURL():
     if request.method == 'POST':
         dict_data = request.form.to_dict()
         print('這裡是回傳資訊: ')
