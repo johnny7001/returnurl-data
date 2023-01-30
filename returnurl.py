@@ -54,7 +54,7 @@ class AESTool:
         """
         cipher = AES.new(self.key, AES.MODE_CBC, self.iv)
         content = base64.b64decode(content)
-        text = cipher.decrypt(content).decode('utf-8')
+        text = cipher.decrypt(content).decode('utf-8', errors='ignore')
         return self.pkcs7padding(text)
 
 aes_tool = AESTool()
@@ -123,7 +123,6 @@ def PaymentResult():
         # print(dict_data['Data'])
         # print(return_dict)
         return_data = dict_data['Data']
-        return_data.encode('utf-8').strip()
         # 將回傳的DATA取出後解密
         decrypt_str = aes_tool.aes_decrypt(return_data)
         # URLDecode解碼
