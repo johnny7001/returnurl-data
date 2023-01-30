@@ -139,11 +139,10 @@ def CvsMap():
         dict_data = request.form.to_dict()
         print('這裡是回傳資訊: ')
         print(dict_data, type(dict_data)) # type = dict
-        content = dict_data
     elif request.method == 'GET':
-        content = '這邊是地圖回傳'
+        dict_data = '這邊是地圖回傳'
         print('這邊是地圖回傳')
-    return ord(content)
+    return dict_data
 
 if __name__=="__main__":
     # app.config['JSON_AS_ASCII'] = False
