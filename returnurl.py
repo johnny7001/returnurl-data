@@ -186,8 +186,8 @@ def CrossBorder():
         print('這裡是回傳資訊: ')
         print(dict_data, type(dict_data)) # type = dict
     elif request.method == 'GET':
-        dict_data = '物流整合API'
-        print('物流整合API')
+        dict_data = '跨境物流API'
+        print('跨境物流API!')
     # return jsonify(dict_data)
     return dict_data
 
