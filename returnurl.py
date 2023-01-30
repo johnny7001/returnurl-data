@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+# -*- coding: utf8 -*- 
+from flask import Flask, request
 import urllib.parse
 import hashlib
 import json
@@ -144,5 +145,5 @@ def CvsMap():
     return json.dumps(dict_data).encode('utf-8')
 
 if __name__=="__main__":
-    app.config['JSON_AS_ASCII'] = False
+    # app.config['JSON_AS_ASCII'] = False
     app.run()
