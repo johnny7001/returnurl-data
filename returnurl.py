@@ -141,7 +141,7 @@ def CvsMap():
     elif request.method == 'GET':
         dict_data = '這邊是地圖回傳'
         print('這邊是地圖回傳')
-    return json.dumps(dict_data)
+    return json.dumps(dict_data).encode('utf-8')
 
 if __name__=="__main__":
     app.config['JSON_AS_ASCII'] = False
