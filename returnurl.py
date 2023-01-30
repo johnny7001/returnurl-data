@@ -182,8 +182,8 @@ def PeriodReturnURL():
 @app.route('/CrossBorder', methods=["GET", "POST"])
 def CrossBorder():
     if request.method == 'POST':
-        dict_data = request.json
         print('這裡是回傳資訊: ')
+        dict_data = request.json
         print(dict_data, type(dict_data)) # type = dict
     elif request.method == 'GET':
         dict_data = '跨境物流API'
