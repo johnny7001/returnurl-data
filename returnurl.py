@@ -134,15 +134,15 @@ def PaymentResult():
 # 接收門市地圖資訊
 @app.route('/CvsMap', methods=["GET", "POST"])
 def CvsMap():
-    content = ''
     if request.method == 'POST':
         dict_data = request.form.to_dict()
         print('這裡是回傳資訊: ')
         print(dict_data, type(dict_data)) # type = dict
+        json_str = json.dumps(dict_data)
     elif request.method == 'GET':
         dict_data = '這邊是地圖回傳'
         print('這邊是地圖回傳')
-    return jsonify(dict_data)
+    return jsonify(json_str)
 
 if __name__=="__main__":
     app.config['JSON_AS_ASCII'] = False
