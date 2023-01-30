@@ -123,12 +123,12 @@ def PaymentResult():
         # print(dict_data['Data'])
         # print(return_dict)
         return_data = dict_data['Data']
-        print(type(return_data))
-        # # 將回傳的DATA取出後解密
-        # decrypt_str = aes_tool.aes_decrypt(return_data)
-        # # URLDecode解碼
-        # data_unquote = urllib.parse.unquote(decrypt_str)
-        # print(data_unquote) # type = str
+        return_data.encode('utf-8').strip()
+        # 將回傳的DATA取出後解密
+        decrypt_str = aes_tool.aes_decrypt(return_data)
+        # URLDecode解碼
+        data_unquote = urllib.parse.unquote(decrypt_str)
+        print(data_unquote) # type = str
         # # 將回傳的DATA取出後解密
         # decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
         # # URLDecode解碼
