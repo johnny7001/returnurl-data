@@ -117,17 +117,17 @@ def PaymentResult():
     content = ""
     # 判斷接收的結果
     if request.method == "POST":
-        dict_data = request.form.to_dict()
+        dict_data = request.json
         print(dict_data, type(dict_data)) # type = dict
         print('='*50)
-        # # print(dict_data['Data'])
-        # # print(return_dict)
-        # return_data = dict_data['Data']
-        # # 將回傳的DATA取出後解密
-        # decrypt_str = aes_tool.aes_decrypt(return_data)
-        # # URLDecode解碼
-        # data_unquote = urllib.parse.unquote(decrypt_str)
-        # print(data_unquote) # type = str
+        # print(dict_data['Data'])
+        # print(return_dict)
+        return_data = dict_data['Data']
+        # 將回傳的DATA取出後解密
+        decrypt_str = aes_tool.aes_decrypt(return_data)
+        # URLDecode解碼
+        data_unquote = urllib.parse.unquote(decrypt_str)
+        print(data_unquote) # type = str
         # # 將回傳的DATA取出後解密
         # decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
         # # URLDecode解碼
@@ -177,6 +177,19 @@ def PeriodReturnURL():
         print('站內付2.0, 定期定額執行結果回應')
     # return jsonify(dict_data)
     return json.dumps(dict_data, ensure_ascii=False)
+
+# 跨境物流API
+@app.route('/CrossBorder', methods=["GET", "POST"])
+def CrossBorder():
+    if request.method == 'POST':
+        dict_data = request.json
+        print('這裡是回傳資訊: ')
+        print(dict_data, type(dict_data)) # type = dict
+    elif request.method == 'GET':
+        dict_data = '物流整合API'
+        print('物流整合API')
+    # return jsonify(dict_data)
+    return dict_data
 
 if __name__=="__main__":
     app.run()
