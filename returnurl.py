@@ -142,7 +142,7 @@ def CvsMap():
     elif request.method == 'GET':
         dict_data = '這邊是地圖回傳'
         print('這邊是地圖回傳')
-    return jsonify({'login':'成功'})
+    return jsonify(dict_data)
 
 if __name__=="__main__":
     app.run()
