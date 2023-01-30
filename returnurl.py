@@ -158,5 +158,18 @@ def ServerReplyURL():
     # return jsonify(dict_data)
     return json.dumps(dict_data, ensure_ascii=False)
 
+# 站內付2.0, 定期定額執行結果回應網址
+@app.route('/PeriodReturnURL', methods=["GET", "POST"])
+def PeriodReturnURL():
+    if request.method == 'POST':
+        dict_data = request.form.to_dict()
+        print('這裡是回傳資訊: ')
+        print(dict_data, type(dict_data)) # type = dict
+    elif request.method == 'GET':
+        dict_data = '站內付2.0, 定期定額執行結果回應'
+        print('站內付2.0, 定期定額執行結果回應')
+    # return jsonify(dict_data)
+    return json.dumps(dict_data, ensure_ascii=False)
+
 if __name__=="__main__":
     app.run()
