@@ -145,5 +145,18 @@ def CvsMap():
     # return jsonify(dict_data)
     return json.dumps(dict_data, ensure_ascii=False)
 
+# 物流整合API
+@app.route('/ServerReplyURL', methods=["GET", "POST"])
+def CvsMap():
+    if request.method == 'POST':
+        dict_data = request.form.to_dict()
+        print('這裡是回傳資訊: ')
+        print(dict_data, type(dict_data)) # type = dict
+    elif request.method == 'GET':
+        dict_data = '物流整合API'
+        print('物流整合API')
+    # return jsonify(dict_data)
+    return json.dumps(dict_data, ensure_ascii=False)
+
 if __name__=="__main__":
     app.run()
