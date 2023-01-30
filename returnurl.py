@@ -4,7 +4,7 @@ import urllib.parse
 import hashlib
 from Crypto.Cipher import AES
 import base64
-
+import json
 # 特店測試資料:
 MerchantID = "3002607" # 模擬銀行3D驗證
 HashKey="pwFHCqoQZGmho4w6"
@@ -60,7 +60,7 @@ class AESTool:
 aes_tool = AESTool()
 
 app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False
+# app.config['JSON_AS_ASCII'] = False
 
 def get_CheckMacValue(hashStr) -> str:
     """
@@ -142,7 +142,8 @@ def CvsMap():
     elif request.method == 'GET':
         dict_data = '這邊是地圖回傳'
         print('這邊是地圖回傳')
-    return jsonify(dict_data)
+    # return jsonify(dict_data)
+    return json.dumps(dict_data, ensure_ascii=False)
 
 if __name__=="__main__":
     app.run()
