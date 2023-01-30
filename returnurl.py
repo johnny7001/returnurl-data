@@ -60,6 +60,7 @@ class AESTool:
 aes_tool = AESTool()
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 def get_CheckMacValue(hashStr) -> str:
     """
@@ -144,5 +145,4 @@ def CvsMap():
     return jsonify({'login':'成功'})
 
 if __name__=="__main__":
-    app.config['JSON_AS_ASCII'] = False
     app.run()
