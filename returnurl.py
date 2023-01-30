@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*- 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import urllib.parse
 import hashlib
 import json
@@ -142,8 +142,8 @@ def CvsMap():
     elif request.method == 'GET':
         dict_data = '這邊是地圖回傳'
         print('這邊是地圖回傳')
-    return json.dumps(dict_data).encode('utf-8')
+    return jsonify(dict_data)
 
 if __name__=="__main__":
-    # app.config['JSON_AS_ASCII'] = False
+    app.config['JSON_AS_ASCII'] = False
     app.run()
