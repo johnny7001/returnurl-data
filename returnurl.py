@@ -1,6 +1,6 @@
 # coding:utf-8 
 from flask import Flask, request
-import urllib.parse
+import urllib
 import hashlib
 from Crypto.Cipher import AES
 import base64
