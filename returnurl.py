@@ -117,17 +117,17 @@ def PaymentResult():
     content = ""
     # 判斷接收的結果
     if request.method == "POST":
-        dict_data = request.json
+        dict_data = request.form.to_dict()
         print(dict_data, type(dict_data)) # type = dict
         print('='*50)
-        # print(dict_data['Data'])
-        # print(return_dict)
-        return_data = dict_data['Data']
-        # 將回傳的DATA取出後解密
-        decrypt_str = aes_tool.aes_decrypt(return_data)
-        # URLDecode解碼
-        data_unquote = urllib.parse.unquote(decrypt_str)
-        print(data_unquote) # type = str
+        # # print(dict_data['Data'])
+        # # print(return_dict)
+        # return_data = dict_data['Data']
+        # # 將回傳的DATA取出後解密
+        # decrypt_str = aes_tool.aes_decrypt(return_data)
+        # # URLDecode解碼
+        # data_unquote = urllib.parse.unquote(decrypt_str)
+        # print(data_unquote) # type = str
         # # 將回傳的DATA取出後解密
         # decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
         # # URLDecode解碼
