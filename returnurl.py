@@ -6,13 +6,13 @@ from Crypto.Cipher import AES
 import base64
 import json
 # 特店測試資料:
-MerchantID = "3002607" # 模擬銀行3D驗證
-HashKey="pwFHCqoQZGmho4w6"
-HashIV="EkRm7iFT261dpevs"
+# MerchantID = "3002607" # 模擬銀行3D驗證
+# HashKey="pwFHCqoQZGmho4w6"
+# HashIV="EkRm7iFT261dpevs"
 
-# MerchantID = "2000132" # 模擬無銀行3D驗證
-# HashKey="5294y06JbISpM5x9"
-# HashIV="v77hoKGq4kWxNNIS"
+MerchantID = "2000132" # 模擬無銀行3D驗證
+HashKey="5294y06JbISpM5x9"
+HashIV="v77hoKGq4kWxNNIS"
 
 class AESTool:
     def __init__(self):
@@ -77,12 +77,80 @@ def get_CheckMacValue(hashStr) -> str:
 def home():
     return ('this is ReturnURL')
 
-# 全方位金流
+# 全方位金流 AIO_ResultUrlData
 @app.route('/AIO_ResultUrlData', methods=["GET", "POST"])
 def AIO_ResultUrlData():
+    # 判斷接收的結果
+    if request.method == "POST":
+        data_dict = request.form.to_dict() # type = dict
+        print(data_dict)
+
+        returnCheck = data_dict['CheckMacValue']
+        print(f'收到的檢查碼 = {returnCheck}')
+
+        # 將收到的回覆組成 data 字串
+        # 檢查碼以外的字串重新排序, 形成新的字串
+        sort_str = ''
+        for k in sorted (data_dict) : 
+            if k != 'CheckMacValue':
+                sort_str += f'{k}={data_dict[k]}&'
+
+        hashStr = f"HashKey={HashKey}&{sort_str}HashIV={HashIV}".lower()
+        # 產生檢查碼
+        CheckMacValue = get_CheckMacValue(hashStr)
+
+        print(f'新的檢查碼 = {CheckMacValue}')
+        # 核對驗證碼是否相同
+        if returnCheck == CheckMacValue:
+            print("1|OK")
+            return "1|OK"
+        else:
+            print("驗證碼不符")
+            return "驗證碼不符"
+
+    elif request.method == "GET":
+        return "這裡是get頁面"
+
+# 全方位金流 AIO_PeriodReturnURL
+@app.route('/AIO_PeriodReturnURL', methods=["GET", "POST"])
+def AIO_PeriodReturnURL():
     # 特店測試資料:
     HashKey="pwFHCqoQZGmho4w6"
     HashIV="EkRm7iFT261dpevs"
+    # 判斷接收的結果
+    if request.method == "POST":
+        data_dict = request.form.to_dict() # type = dict
+        print(data_dict)
+
+        returnCheck = data_dict['CheckMacValue']
+        print(f'收到的檢查碼 = {returnCheck}')
+
+        # 將收到的回覆組成 data 字串
+        # 檢查碼以外的字串重新排序, 形成新的字串
+        sort_str = ''
+        for k in sorted (data_dict) : 
+            if k != 'CheckMacValue':
+                sort_str += f'{k}={data_dict[k]}&'
+
+        hashStr = f"HashKey={HashKey}&{sort_str}HashIV={HashIV}".lower()
+        # 產生檢查碼
+        CheckMacValue = get_CheckMacValue(hashStr)
+
+        print(f'新的檢查碼 = {CheckMacValue}')
+        # 核對驗證碼是否相同
+        if returnCheck == CheckMacValue:
+            print("1|OK")
+            return "1|OK"
+        else:
+            print("驗證碼不符")
+            return "驗證碼不符"
+
+    elif request.method == "GET":
+        return "這裡是get頁面"
+
+# # 全方位金流 AIO_PaymentInfoURL 取號付款結果通知
+@app.route('/AIO_PaymentInfoURL', methods=["GET", "POST"])
+def AIO_PaymentInfoURL():
     # 判斷接收的結果
     if request.method == "POST":
         data_dict = request.form.to_dict() # type = dict
@@ -146,6 +214,7 @@ def ResultUrlData():
 
     elif request.method == "GET":
         return "這裡是get頁面"
+
 
 # 站內付2.0 接收用
 @app.route('/PaymentResult', methods=["GET", "POST"])
