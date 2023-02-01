@@ -77,8 +77,8 @@ def get_CheckMacValue(hashStr) -> str:
 def home():
     return ('this is ReturnURL')
 
-# 全方位金流 AIO_ResultUrlData
-@app.route('/AIO_ResultUrlData', methods=["GET", "POST"])
+# 核對CheckMacValue檢查碼使用: ResultUrlData
+@app.route('/ResultUrlData', methods=["GET", "POST"])
 def AIO_ResultUrlData():
     # 判斷接收的結果
     if request.method == "POST":
@@ -111,138 +111,27 @@ def AIO_ResultUrlData():
     elif request.method == "GET":
         return "這裡是get頁面"
 
-# 全方位金流 AIO_PeriodReturnURL
-@app.route('/AIO_PeriodReturnURL', methods=["GET", "POST"])
-def AIO_PeriodReturnURL():
-    # 特店測試資料:
-    HashKey="pwFHCqoQZGmho4w6"
-    HashIV="EkRm7iFT261dpevs"
-    # 判斷接收的結果
-    if request.method == "POST":
-        data_dict = request.form.to_dict() # type = dict
-        print(data_dict)
-
-        returnCheck = data_dict['CheckMacValue']
-        print(f'收到的檢查碼 = {returnCheck}')
-
-        # 將收到的回覆組成 data 字串
-        # 檢查碼以外的字串重新排序, 形成新的字串
-        sort_str = ''
-        for k in sorted (data_dict) : 
-            if k != 'CheckMacValue':
-                sort_str += f'{k}={data_dict[k]}&'
-
-        hashStr = f"HashKey={HashKey}&{sort_str}HashIV={HashIV}".lower()
-        # 產生檢查碼
-        CheckMacValue = get_CheckMacValue(hashStr)
-
-        print(f'新的檢查碼 = {CheckMacValue}')
-        # 核對驗證碼是否相同
-        if returnCheck == CheckMacValue:
-            print("1|OK")
-            return "1|OK"
-        else:
-            print("驗證碼不符")
-            return "驗證碼不符"
-
-    elif request.method == "GET":
-        return "這裡是get頁面"
-
-# # 全方位金流 AIO_PaymentInfoURL 取號付款結果通知
-@app.route('/AIO_PaymentInfoURL', methods=["GET", "POST"])
-def AIO_PaymentInfoURL():
-    # 判斷接收的結果
-    if request.method == "POST":
-        data_dict = request.form.to_dict() # type = dict
-        print(data_dict)
-
-        returnCheck = data_dict['CheckMacValue']
-        print(f'收到的檢查碼 = {returnCheck}')
-
-        # 將收到的回覆組成 data 字串
-        # 檢查碼以外的字串重新排序, 形成新的字串
-        sort_str = ''
-        for k in sorted (data_dict) : 
-            if k != 'CheckMacValue':
-                sort_str += f'{k}={data_dict[k]}&'
-
-        hashStr = f"HashKey={HashKey}&{sort_str}HashIV={HashIV}".lower()
-        # 產生檢查碼
-        CheckMacValue = get_CheckMacValue(hashStr)
-
-        print(f'新的檢查碼 = {CheckMacValue}')
-        # 核對驗證碼是否相同
-        if returnCheck == CheckMacValue:
-            print("1|OK")
-            return "1|OK"
-        else:
-            print("驗證碼不符")
-            return "驗證碼不符"
-
-    elif request.method == "GET":
-        return "這裡是get頁面"
-
-@app.route('/ResultUrlData', methods=["GET", "POST"])
-def ResultUrlData():
-    # 判斷接收的結果
-    if request.method == "POST":
-        data_dict = request.form.to_dict() # type = dict
-        print(data_dict)
-
-        returnCheck = data_dict['CheckMacValue']
-        print(f'收到的檢查碼 = {returnCheck}')
-
-        # 將收到的回覆組成 data 字串
-        # 檢查碼以外的字串重新排序, 形成新的字串
-        sort_str = ''
-        for k in sorted (data_dict) : 
-            if k != 'CheckMacValue':
-                sort_str += f'{k}={data_dict[k]}&'
-
-        hashStr = f"HashKey={HashKey}&{sort_str}HashIV={HashIV}".lower()
-        # 產生檢查碼
-        CheckMacValue = get_CheckMacValue(hashStr)
-
-        print(f'新的檢查碼 = {CheckMacValue}')
-        # 核對驗證碼是否相同
-        if returnCheck == CheckMacValue:
-            print("1|OK")
-            return "1|OK"
-        else:
-            print("驗證碼不符")
-            return "驗證碼不符"
-
-    elif request.method == "GET":
-        return "這裡是get頁面"
-
-
-# 站內付2.0 接收用
-@app.route('/PaymentResult', methods=["GET", "POST"])
-def PaymentResult():
-    content = ""
-    # 判斷接收的結果
-    if request.method == "POST":
-        dict_data = request.json
-        print(dict_data, type(dict_data)) # type = dict
-        print('='*50)
-        # print(dict_data['Data'])
-        # print(return_dict)
-        return_data = dict_data['Data']
+# AES解密使用, Content Type：application/json
+@app.route('/New_logistic', methods=["GET", "POST"])
+def New_logistic():
+    if request.method == 'POST':
+        get_data = request.get_data() # type = bytes
+        # print(return_data, type(return_data))
+        get_data.decode('utf-8')
+        dict_data = json.loads(get_data.decode('utf-8'))
+        print(dict_data)
         # 將回傳的DATA取出後解密
-        decrypt_str = aes_tool.aes_decrypt(return_data)
+        decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
         # URLDecode解碼
         data_unquote = urllib.parse.unquote(decrypt_str)
-        print(data_unquote) # type = str
-        # # 將回傳的DATA取出後解密
-        # decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
-        # # URLDecode解碼
-        # content = urllib.parse.unquote(decrypt_str)
-        # print('解碼後的Data: ' + content)
-
-    elif request.method == "GET":
-        content = '站內付2.0的ReturnURL, 付款結果通知'
+        content = data_unquote # type = str
         print(content)
+    elif request.method == 'GET':
+        content = '這裡是GET頁面'
+        print(content)
+    # return jsonify(dict_data)
     return content
+
 
 # 接收門市地圖資訊
 @app.route('/CvsMap', methods=["GET", "POST"])
@@ -256,74 +145,6 @@ def CvsMap():
         print('這邊是地圖回傳')
     # return jsonify(dict_data)
     return json.dumps(dict_data, ensure_ascii=False)
-
-# 物流整合API
-@app.route('/ServerReplyURL', methods=["GET", "POST"])
-def ServerReplyURL():
-    if request.method == 'POST':
-        dict_data = request.form.to_dict()
-        print('這裡是回傳資訊: ')
-        print(dict_data, type(dict_data)) # type = dict
-    elif request.method == 'GET':
-        dict_data = '物流整合API'
-        print('物流整合API')
-    # return jsonify(dict_data)
-    return json.dumps(dict_data, ensure_ascii=False)
-
-# 站內付2.0, 定期定額執行結果回應網址
-@app.route('/PeriodReturnURL', methods=["GET", "POST"])
-def PeriodReturnURL():
-    if request.method == 'POST':
-        dict_data = request.form.to_dict()
-        print('這裡是回傳資訊: ')
-        print(dict_data, type(dict_data)) # type = dict
-    elif request.method == 'GET':
-        dict_data = '站內付2.0, 定期定額執行結果回應'
-        print('站內付2.0, 定期定額執行結果回應')
-    # return jsonify(dict_data)
-    return json.dumps(dict_data, ensure_ascii=False)
-
-# 跨境物流API
-@app.route('/CrossBorder', methods=["GET", "POST"])
-def CrossBorder():
-    if request.method == 'POST':
-        dict_data = request.json
-        # print(dict_data, type(dict_data)) # type = dict
-        # print('='*50)
-        # print(dict_data['Data'])
-        # print(return_dict)
-        return_data = dict_data['Data']
-        # 將回傳的DATA取出後解密
-        decrypt_str = aes_tool.aes_decrypt(return_data)
-        # URLDecode解碼
-        data_unquote = urllib.parse.unquote(decrypt_str)
-        content = data_unquote # type = str
-    elif request.method == 'GET':
-        content = '跨境物流API'
-        print('跨境物流API!')
-    # return jsonify(dict_data)
-    return content
-
-# 新版全方位物流
-@app.route('/New_logistic', methods=["GET", "POST"])
-def New_logistic():
-    if request.method == 'POST':
-        get_data = request.get_data() # type = bytes
-        # print(return_data, type(return_data))
-        get_data.decode('utf-8')
-        dict_data = json.loads(get_data.decode('utf-8'))
-    
-        # 將回傳的DATA取出後解密
-        decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
-        # URLDecode解碼
-        data_unquote = urllib.parse.unquote(decrypt_str)
-        content = data_unquote # type = str
-        print(content)
-    elif request.method == 'GET':
-        content = '新版全方位物流'
-        print(content)
-    # return jsonify(dict_data)
-    return content
 
 if __name__=="__main__":
     app.run()
