@@ -308,23 +308,17 @@ def CrossBorder():
 @app.route('/New_logistic', methods=["GET", "POST"])
 def New_logistic():
     if request.method == 'POST':
-        # print('新版全方位物流! POST')
-        # print(request.json, type(request.json))
-
-        return_data = request.get_data() # type = bytes
+        get_data = request.get_data() # type = bytes
         # print(return_data, type(return_data))
-        content = return_data.decode('utf-8')
-        print(content, type(content))
-        # key, value = list(return_data.items())[0]
-        # content = key + value
-        # print(content, type(content))
-        # dict_data = json.loads(content)
+        get_data.decode('utf-8')
+        dict_data = json.loads(get_data.decode('utf-8'))
     
-        # # 將回傳的DATA取出後解密
-        # decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
-        # # URLDecode解碼
-        # data_unquote = urllib.parse.unquote(decrypt_str)
-        # content = data_unquote # type = str
+        # 將回傳的DATA取出後解密
+        decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
+        # URLDecode解碼
+        data_unquote = urllib.parse.unquote(decrypt_str)
+        content = data_unquote # type = str
+        print(content)
     elif request.method == 'GET':
         content = '新版全方位物流'
         print(content)
