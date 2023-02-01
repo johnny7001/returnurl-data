@@ -313,15 +313,15 @@ def New_logistic():
         key, value = list(return_data.items())[0]
         content = key + value
         dict_data = json.loads(content)
-        print(dict_data['Data'])
+        aes_data = dict_data['Data']
         # print(dict_data['Data'])
         # return_data = dict_data['Data']
         # 將回傳的DATA取出後解密
-        # decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
-        # # URLDecode解碼
-        # data_unquote = urllib.parse.unquote(decrypt_str)
-        # content = data_unquote # type = str
-        # print(content)
+        decrypt_str = aes_tool.aes_decrypt(aes_data)
+        # URLDecode解碼
+        data_unquote = urllib.parse.unquote(decrypt_str)
+        content = data_unquote # type = str
+        print(content)
     elif request.method == 'GET':
         content = '新版全方位物流'
         print(content)
