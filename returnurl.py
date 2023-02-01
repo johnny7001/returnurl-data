@@ -308,6 +308,7 @@ def CrossBorder():
 @app.route('/New_logistic', methods=["GET", "POST"])
 def New_logistic():
     if request.method == 'POST':
+        print('新版全方位物流!')
         dict_data = request.json
         # print(dict_data, type(dict_data)) # type = dict
         # print('='*50)
