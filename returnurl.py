@@ -126,7 +126,9 @@ def ResultUrl_AES():
         decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
         # URLDecode解碼
         data_unquote = urllib.parse.unquote(decrypt_str)
-        content = data_unquote # type = str
+        data = data_unquote # type = str
+        print(data)
+        content = "1|OK"
         print(content)
     elif request.method == 'GET':
         content = '這裡是GET頁面'
