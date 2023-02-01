@@ -309,19 +309,23 @@ def CrossBorder():
 def New_logistic():
     if request.method == 'POST':
         # print('新版全方位物流! POST')
-        return_data = request.form.to_dict() # type = dict
-        key, value = list(return_data.items())[0]
-        content = key + value
-        dict_data = json.loads(content)
-        aes_data = dict_data['Data']
+        return_data = request.json
+        print(return_data, type(return_data))
+        content = return_data
+        # return_data = request.form.to_dict() # type = dict
+        # key, value = list(return_data.items())[0]
+        # content = key + value
+        # dict_data = json.loads(content)
+        # print(dict_data, type(dict_data))
+        # aes_data = dict_data['Data']
         # print(dict_data['Data'])
         # return_data = dict_data['Data']
         # 將回傳的DATA取出後解密
-        decrypt_str = aes_tool.aes_decrypt(aes_data)
-        # URLDecode解碼
-        data_unquote = urllib.parse.unquote(decrypt_str)
-        content = data_unquote # type = str
-        print(content)
+        # decrypt_str = aes_tool.aes_decrypt(aes_data)
+        # # URLDecode解碼
+        # data_unquote = urllib.parse.unquote(decrypt_str)
+        # content = data_unquote # type = str
+        # print(content)
     elif request.method == 'GET':
         content = '新版全方位物流'
         print(content)
