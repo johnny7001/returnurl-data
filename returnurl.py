@@ -319,6 +319,7 @@ def New_logistic():
         # URLDecode解碼
         data_unquote = urllib.parse.unquote(decrypt_str)
         content = data_unquote # type = str
+        print(content)
     elif request.method == 'GET':
         content = '新版全方位物流'
         print('新版全方位物流!')
