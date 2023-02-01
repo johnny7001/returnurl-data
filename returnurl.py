@@ -54,7 +54,7 @@ class AESTool:
         """
         cipher = AES.new(self.key, AES.MODE_CBC, self.iv)
         content = base64.b64decode(content)
-        text = cipher.decrypt(content).decode('utf-8', errors='ignore')
+        text = cipher.decrypt(content).decode('utf-8')
         return self.pkcs7padding(text)
 
 aes_tool = AESTool()
@@ -311,22 +311,19 @@ def New_logistic():
         # print('新版全方位物流! POST')
         # print(request.json, type(request.json))
 
-        return_data = request.form.to_dict() # type = dict
-        # print(return_data, type(return_data))
-        key, value = list(return_data.items())[0]
-        content = key + value
+        return_data = request.form.get() # type = dict
+        print(return_data, type(return_data))
+        # key, value = list(return_data.items())[0]
+        # content = key + value
         # print(content, type(content))
-        dict_data = json.loads(content)
-        # print(dict_data, type(dict_data)) # type = dict
-        # print(dict_data, type(dict_data))
-        # aes_data = dict_data['Data']
-        # print(dict_data['Data'])
-        # return_data = dict_data['Data']
-        # 將回傳的DATA取出後解密
-        decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
-        # URLDecode解碼
-        data_unquote = urllib.parse.unquote(decrypt_str)
-        content = data_unquote # type = str
+        # dict_data = json.loads(content)
+    
+        # # 將回傳的DATA取出後解密
+        # decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
+        # # URLDecode解碼
+        # data_unquote = urllib.parse.unquote(decrypt_str)
+        # content = data_unquote # type = str
+        content = return_data
         print(content)
     elif request.method == 'GET':
         content = '新版全方位物流'
