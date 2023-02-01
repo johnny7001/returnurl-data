@@ -308,12 +308,8 @@ def CrossBorder():
 @app.route('/New_logistic', methods=["GET", "POST"])
 def New_logistic():
     if request.method == 'POST':
-        print('新版全方位物流!')
+        print('新版全方位物流! POST')
         dict_data = request.json
-        # print(dict_data, type(dict_data)) # type = dict
-        # print('='*50)
-        # print(dict_data['Data'])
-        # print(return_dict)
         return_data = dict_data['Data']
         # 將回傳的DATA取出後解密
         decrypt_str = aes_tool.aes_decrypt(return_data)
