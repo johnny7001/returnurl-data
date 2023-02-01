@@ -75,11 +75,12 @@ def get_CheckMacValue(hashStr) -> str:
 
 @app.route('/')
 def home():
-    return ('this is ReturnURL')
+    return ('this is ServerReplyURL')
 
-# 核對CheckMacValue檢查碼使用: ResultUrlData
-@app.route('/ResultUrlData', methods=["GET", "POST"])
-def AIO_ResultUrlData():
+# 核對CheckMacValue檢查碼使用 -> 全方位金流API:ResultUrlData, 物流整合API
+# Content Type ：application/x-www-form-urlencoded
+@app.route('/ResultUrl_MD5', methods=["GET", "POST"])
+def ResultUrl_MD5():
     # 判斷接收的結果
     if request.method == "POST":
         data_dict = request.form.to_dict() # type = dict
@@ -111,9 +112,10 @@ def AIO_ResultUrlData():
     elif request.method == "GET":
         return "這裡是get頁面"
 
-# AES解密使用, Content Type：application/json
-@app.route('/New_logistic', methods=["GET", "POST"])
-def New_logistic():
+# AES解密使用 -> 站內付2.0, 全方位物流服務, 跨境物流API
+# Content Type：application/json
+@app.route('/ResultUrl_AES', methods=["GET", "POST"])
+def ResultUrl_AES():
     if request.method == 'POST':
         get_data = request.get_data() # type = bytes
         # print(return_data, type(return_data))
