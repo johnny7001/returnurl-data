@@ -317,16 +317,16 @@ def New_logistic():
         content = key + value
         # print(content, type(content))
         dict_data = json.loads(content)
-        print(dict_data, type(dict_data))
+        # print(dict_data, type(dict_data)) # type = dict
         # print(dict_data, type(dict_data))
         # aes_data = dict_data['Data']
         # print(dict_data['Data'])
         # return_data = dict_data['Data']
         # 將回傳的DATA取出後解密
-        # decrypt_str = aes_tool.aes_decrypt(aes_data)
-        # # URLDecode解碼
-        # data_unquote = urllib.parse.unquote(decrypt_str)
-        # content = data_unquote # type = str
+        decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
+        # URLDecode解碼
+        data_unquote = urllib.parse.unquote(decrypt_str)
+        content = data_unquote # type = str
         print(content)
     elif request.method == 'GET':
         content = '新版全方位物流'
