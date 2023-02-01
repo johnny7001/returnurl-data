@@ -311,8 +311,10 @@ def New_logistic():
         # print('新版全方位物流! POST')
         # print(request.json, type(request.json))
 
-        return_data = request.get_data() # type = dict
-        print(return_data, type(return_data))
+        return_data = request.get_data() # type = bytes
+        # print(return_data, type(return_data))
+        content = return_data.decode('utf-8')
+        print(content, type(content))
         # key, value = list(return_data.items())[0]
         # content = key + value
         # print(content, type(content))
@@ -323,8 +325,6 @@ def New_logistic():
         # # URLDecode解碼
         # data_unquote = urllib.parse.unquote(decrypt_str)
         # content = data_unquote # type = str
-        content = return_data
-        print(content)
     elif request.method == 'GET':
         content = '新版全方位物流'
         print(content)
