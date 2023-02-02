@@ -143,7 +143,7 @@ def ResultUrl_AES():
         decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
         # URLDecode解碼
         data_unquote = urllib.parse.unquote(decrypt_str) # type = str
-        # print(data_unquote)
+        print(data_unquote)
         if dict_data['TransCode'] == 1:
             import time
             Timestamp = {'Timestamp':int(time.time())}
@@ -166,7 +166,6 @@ def ResultUrl_AES():
 
             urlEncode_str = urllib.parse.quote(data_json)
             # print('URLEncode: '+urlEncode_str)
-            aes_tool = AESTool()
             # AES 加密
             encrypt_str = aes_tool.aes_encrypt(urlEncode_str) # type = str
             # print('AES 加密: '+encrypt_str)
