@@ -138,20 +138,48 @@ def ResultUrl_AES():
         # print(return_data, type(return_data))
         get_data.decode('utf-8')
         dict_data = json.loads(get_data.decode('utf-8'))
-        print(dict_data)
+        # print(dict_data)
         # 將回傳的DATA取出後解密
         decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
         # URLDecode解碼
-        data_unquote = urllib.parse.unquote(decrypt_str)
-        data = data_unquote # type = str
-        print(data)
-        content = "1|OK"
-        print(content)
+        data_unquote = urllib.parse.unquote(decrypt_str) # type = str
+        # print(data_unquote)
+        if dict_data['TransCode'] == 1:
+            import time
+            Timestamp = {'Timestamp':int(time.time())}
+            return_params = {
+                'MerchantID': '2000132',
+                    'RpHeader': {
+                        'Timestamp': Timestamp
+                    },
+                    "TransCode": 1,
+                    "TransMsg": "",
+                    'Data': ''
+                }
+            Data = {
+                'RtnCode':1,
+                'RtnMsg':'成功接收'
+            }
+
+            # Data參數轉為URLEncode
+            data_json = json.dumps(Data)
+
+            urlEncode_str = urllib.parse.quote(data_json)
+            # print('URLEncode: '+urlEncode_str)
+            aes_tool = AESTool()
+            # AES 加密
+            encrypt_str = aes_tool.aes_encrypt(urlEncode_str) # type = str
+            # print('AES 加密: '+encrypt_str)
+            # 將加密的Data加入字典
+            return_params['Data'] = encrypt_str
+            # dict to json 
+            json_str = json.dumps(return_params, separators=(',', ':'))
+            content = json_str        
+            print(content)
+            return content
     elif request.method == 'GET':
         content = '這裡是GET頁面'
-        print(content)
-    # return jsonify(dict_data)
-    return content
+        return content
 
 # 核對CheckMacValue檢查碼使用 -> 物流整合API
 # Content Type ：application/x-www-form-urlencoded
