@@ -158,7 +158,7 @@ def ResultUrl_AES():
                 }
             Data = {
                 'RtnCode':1,
-                'RtnMsg':'成功接收'
+                'RtnMsg':'OK'
             }
 
             # Data參數轉為URLEncode
