@@ -10,14 +10,14 @@ import json
 # HashKey="pwFHCqoQZGmho4w6"
 # HashIV="EkRm7iFT261dpevs"
 
-# MerchantID = "2000132" # 模擬無銀行3D驗證
-# HashKey="5294y06JbISpM5x9"
-# HashIV="v77hoKGq4kWxNNIS"
+MerchantID = "2000132" # 模擬無銀行3D驗證
+HashKey="5294y06JbISpM5x9"
+HashIV="v77hoKGq4kWxNNIS"
 
 # 測試特店資料：C2C
-MerchantID = '2000933'
-HashKey = 'XBERn1YOvpM9nfZc'
-HashIV = 'h1ONHk4P4yqbl5LK'
+# MerchantID = '2000933'
+# HashKey = 'XBERn1YOvpM9nfZc'
+# HashIV = 'h1ONHk4P4yqbl5LK'
 
 class AESTool:
     def __init__(self):
