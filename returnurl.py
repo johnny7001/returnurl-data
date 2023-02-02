@@ -218,7 +218,7 @@ def ResultUrl_MD5():
 # 跨境物流API, 接收地圖資訊用
 # Content Type ：application/x-www-form-urlencoded
 @app.route('/Map', methods=["GET", "POST"])
-def ResultUrl_MD5():
+def Map():
     # 判斷接收的結果
     if request.method == "POST":
         data_dict = request.form.to_dict() # type = dict
