@@ -67,7 +67,7 @@ aes_tool = AESTool()
 app = Flask(__name__)
 # app.config['JSON_AS_ASCII'] = False
 
-def get_CheckMacValue(hashStr) -> str:
+def SHA256_CheckMacValue(hashStr) -> str:
     """
     輸入排序好的字串, 獲得檢查碼
     """
@@ -78,14 +78,26 @@ def get_CheckMacValue(hashStr) -> str:
     CheckMacValue = hashlib.sha256(url_encodeStr.encode('utf-8')).hexdigest().upper()
     return CheckMacValue
 
+def MD5_CheckMacValue(hashStr) -> str:
+    """
+    輸入排序好的字串, 獲得檢查碼
+    """
+    # 將整串字串進行URL encode, 並轉為小寫
+    url_encodeStr = urllib.parse.quote_plus(hashStr).lower()
+
+    # 以MD5加密方式來產生雜凑值, 再轉大寫產生
+    CheckMacValue = hashlib.md5(
+        url_encodeStr.encode('utf-8')).hexdigest().upper()
+    return CheckMacValue
+
 @app.route('/')
 def home():
     return ('this is ServerReplyURL')
 
-# 核對CheckMacValue檢查碼使用 -> 全方位金流API:ResultUrlData, 物流整合API
+# 核對CheckMacValue檢查碼使用 -> 全方位金流API
 # Content Type ：application/x-www-form-urlencoded
-@app.route('/ResultUrl_MD5', methods=["GET", "POST"])
-def ResultUrl_MD5():
+@app.route('/ResultUrl_SHA256', methods=["GET", "POST"])
+def ResultUrl_SHA256():
     # 判斷接收的結果
     if request.method == "POST":
         data_dict = request.form.to_dict() # type = dict
@@ -103,7 +115,7 @@ def ResultUrl_MD5():
 
         hashStr = f"HashKey={HashKey}&{sort_str}HashIV={HashIV}".lower()
         # 產生檢查碼
-        CheckMacValue = get_CheckMacValue(hashStr)
+        CheckMacValue = SHA256_CheckMacValue(hashStr)
 
         print(f'新的檢查碼 = {CheckMacValue}')
         # 核對驗證碼是否相同
@@ -140,6 +152,41 @@ def ResultUrl_AES():
         print(content)
     # return jsonify(dict_data)
     return content
+
+# 核對CheckMacValue檢查碼使用 -> 物流整合API
+# Content Type ：application/x-www-form-urlencoded
+@app.route('/ResultUrl_MD5', methods=["GET", "POST"])
+def ResultUrl_MD5():
+    # 判斷接收的結果
+    if request.method == "POST":
+        data_dict = request.form.to_dict() # type = dict
+        print(data_dict)
+
+        returnCheck = data_dict['CheckMacValue']
+        print(f'收到的檢查碼 = {returnCheck}')
+
+        # 將收到的回覆組成 data 字串
+        # 檢查碼以外的字串重新排序, 形成新的字串
+        sort_str = ''
+        for k in sorted (data_dict) : 
+            if k != 'CheckMacValue':
+                sort_str += f'{k}={data_dict[k]}&'
+
+        hashStr = f"HashKey={HashKey}&{sort_str}HashIV={HashIV}".lower()
+        # 產生檢查碼
+        CheckMacValue = MD5_CheckMacValue(hashStr)
+
+        print(f'新的檢查碼 = {CheckMacValue}')
+        # 核對驗證碼是否相同
+        if returnCheck == CheckMacValue:
+            print("1|OK")
+            return "1|OK"
+        else:
+            print("驗證碼不符")
+            return "驗證碼不符"
+
+    elif request.method == "GET":
+        return "這裡是get頁面"
 
 if __name__=="__main__":
     app.run()
