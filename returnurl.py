@@ -215,5 +215,17 @@ def ResultUrl_MD5():
     elif request.method == "GET":
         return "這裡是get頁面"
 
+# 跨境物流API, 接收地圖資訊用
+# Content Type ：application/x-www-form-urlencoded
+@app.route('/Map', methods=["GET", "POST"])
+def ResultUrl_MD5():
+    # 判斷接收的結果
+    if request.method == "POST":
+        data_dict = request.form.to_dict() # type = dict
+        print(data_dict)
+
+    elif request.method == "GET":
+        return "這裡是get頁面"
+
 if __name__=="__main__":
     app.run()
