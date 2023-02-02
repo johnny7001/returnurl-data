@@ -217,8 +217,9 @@ def ResultUrl_MD5():
 
 # 跨境物流API, 接收地圖資訊用
 # Content Type ：application/x-www-form-urlencoded
-@app.route('/Map', methods=["GET", "POST"])
-def Map():
+@app.route('/CvsMap', methods=["GET", "POST"])
+def CvsMap():
+    print('店鋪資訊: ')
     # 判斷接收的結果
     if request.method == "POST":
         print('店鋪資訊: ')
