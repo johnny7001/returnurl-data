@@ -221,6 +221,7 @@ def ResultUrl_MD5():
 def Map():
     # 判斷接收的結果
     if request.method == "POST":
+        print('店鋪資訊: ')
         data_dict = request.form.to_dict() # type = dict
         print(data_dict)
 
