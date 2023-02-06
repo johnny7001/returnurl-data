@@ -229,5 +229,26 @@ def CvsMap():
     elif request.method == "GET":
         return "這裡是get頁面"
 
+
+# 站內付2.0 綁定信用卡
+# Content Type：application/json
+@app.route('/ResultUrl_Credit', methods=["GET", "POST"])
+def ResultUrl_Credit():
+    if request.method == 'POST':
+        get_data = request.get_data() # type = bytes
+        # print(return_data, type(return_data))
+        get_data.decode('utf-8')
+        dict_data = json.loads(get_data.decode('utf-8'))
+        # print(dict_data)
+        # 將回傳的DATA取出後解密
+        decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
+        # URLDecode解碼
+        data_unquote = urllib.parse.unquote(decrypt_str) # type = str
+        print(data_unquote)    
+        return data_unquote
+    elif request.method == 'GET':
+        content = '這裡是GET頁面'
+        return content
+
 if __name__=="__main__":
     app.run()
