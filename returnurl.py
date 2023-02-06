@@ -5,19 +5,24 @@ import hashlib
 from Crypto.Cipher import AES
 import base64
 import json
+
 # 特店測試資料:
 # MerchantID = "3002607" # 模擬銀行3D驗證
 # HashKey="pwFHCqoQZGmho4w6"
 # HashIV="EkRm7iFT261dpevs"
 
-MerchantID = "2000132" # 模擬無銀行3D驗證
-HashKey="5294y06JbISpM5x9"
-HashIV="v77hoKGq4kWxNNIS"
+# MerchantID = "2000132" # 模擬無銀行3D驗證
+# HashKey="5294y06JbISpM5x9"
+# HashIV="v77hoKGq4kWxNNIS"
 
 # 測試特店資料：C2C
 # MerchantID = '2000933'
 # HashKey = 'XBERn1YOvpM9nfZc'
 # HashIV = 'h1ONHk4P4yqbl5LK'
+
+MerchantID = '3002607'
+HashKey = 'pwFHCqoQZGmho4w6'
+HashIV = 'EkRm7iFT261dpevs'
 
 class AESTool:
     def __init__(self):
@@ -245,9 +250,9 @@ def ResultUrl_Credit():
         # URLDecode解碼
         data_unquote = urllib.parse.unquote(decrypt_str) # type = str
         print(data_unquote)    
-        return data_unquote
+        return '1|OK'
     elif request.method == 'GET':
-        content = '這裡是GET頁面'
+        content = '站內付2.0 綁卡結果通知'
         return content
 
 if __name__=="__main__":
