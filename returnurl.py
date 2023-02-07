@@ -244,12 +244,12 @@ def ResultUrl_Credit():
         # print(return_data, type(return_data))
         get_data.decode('utf-8')
         dict_data = json.loads(get_data.decode('utf-8'))
-        # print(dict_data)
-        # 將回傳的DATA取出後解密
-        decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
-        # URLDecode解碼
-        data_unquote = urllib.parse.unquote(decrypt_str) # type = str
-        print(data_unquote)    
+        print(dict_data)
+        # # 將回傳的DATA取出後解密
+        # decrypt_str = aes_tool.aes_decrypt(dict_data['Data'])
+        # # URLDecode解碼
+        # data_unquote = urllib.parse.unquote(decrypt_str) # type = str
+        # print(data_unquote)    
         return '1|OK'
     elif request.method == 'GET':
         content = '站內付2.0 綁卡結果通知'
