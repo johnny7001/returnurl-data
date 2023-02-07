@@ -240,10 +240,10 @@ def CvsMap():
 @app.route('/ResultUrl_Credit', methods=["GET", "POST"])
 def ResultUrl_Credit():
     if request.method == 'POST':
-        data_dict = request.form.to_dict() # type = dict
-        print(data_dict)
-        # get_data = request.get_data() # type = bytes
-        # # print(return_data, type(return_data))
+        # data_dict = request.form.to_dict() # type = dict 
+        # print(data_dict) # {}
+        get_data = request.get_data() # type = bytes
+        print(get_data, type(get_data))
         # get_data.decode('utf-8')
         # dict_data = json.loads(get_data.decode('utf-8'))
         # print(dict_data)
