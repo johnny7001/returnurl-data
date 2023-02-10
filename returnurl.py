@@ -1,6 +1,6 @@
 # coding:utf-8 
 from flask import Flask, request
-import urllib
+import urllib.parse
 import hashlib
 from Crypto.Cipher import AES
 import base64
@@ -16,13 +16,10 @@ import json
 # HashIV="v77hoKGq4kWxNNIS"
 
 # 測試特店資料：C2C
-# MerchantID = '2000933'
-# HashKey = 'XBERn1YOvpM9nfZc'
-# HashIV = 'h1ONHk4P4yqbl5LK'
+MerchantID = '2000933'
+HashKey = 'XBERn1YOvpM9nfZc'
+HashIV = 'h1ONHk4P4yqbl5LK'
 
-MerchantID = '3002607'
-HashKey = 'pwFHCqoQZGmho4w6'
-HashIV = 'EkRm7iFT261dpevs'
 
 class AESTool:
     def __init__(self):
@@ -257,4 +254,4 @@ def ResultUrl_Credit():
         return content
 
 if __name__=="__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=5000, debug=True)
